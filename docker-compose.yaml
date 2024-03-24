@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+
+  postgres:
+    tty: true
+    image: postgres:15
+    restart: "unless-stopped"
+    user: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local
