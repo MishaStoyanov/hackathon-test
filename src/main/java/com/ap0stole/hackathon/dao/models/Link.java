@@ -18,9 +18,4 @@ public class Link extends BaseEntity {
 
     @Column(name = "short_link")
     private String shortLink;
-
-    @Column(name = "stats")
-    private Integer stats;
-
-
 }

@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Constant {
+    public final static String API_KEY = "nmWU1ndR17sf9fTmmi2VbyEAFzxMjUQulYt9u9hz3xuzaVPciy9cl1l46Gin";
     @UtilityClass
     public class Authentication {
         public static final String ACCESS_DENIED = "access_denied";
