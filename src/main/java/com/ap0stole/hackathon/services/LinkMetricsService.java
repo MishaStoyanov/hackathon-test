@@ -27,7 +27,6 @@ public class LinkMetricsService {
 
     public LinkMetrics getLinkMetrics(String shortUrl) {
         try {
-
             URL url = new URL("https://t.ly/api/v1/link/stats?short_url=" + URLEncoder.encode(shortUrl, StandardCharsets.UTF_8));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -44,17 +43,11 @@ public class LinkMetricsService {
             reader.close();
 
             JSONObject jsonResponse = new JSONObject(response.toString());
-            int clicks = jsonResponse.getInt("clicks");
-            int uniqueClicks = jsonResponse.getInt("unique_clicks");
 
-            LinkMetrics metrics = new LinkMetrics();
-            metrics.setClicks(clicks);
-            metrics.setUniqueClicks(uniqueClicks);
+            Gson gson = new Gson();
+            LinkMetrics metrics = gson.fromJson(jsonResponse.toString(), LinkMetrics.class);
             metrics.setShortUrl(shortUrl);
-            metrics.setLongUrl(jsonResponse.getJSONObject("data").getString("long_url"));
-
-            connection.disconnect();
-
+            metrics.setLongUrl(Objects.requireNonNull(linkRepository.findByShortLink(shortUrl).orElse(null)).getLongLink());
             return metrics;
         } catch (Exception e) {
             return null;

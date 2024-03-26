@@ -20,7 +20,7 @@ public class LinkController {
     private final LinkMetricsService linkMetricsService;
 
     @PutMapping
-    public void createLinkFromLongLink(@RequestBody UrlDto url) {
+    public void createLinkFromLongLink(@RequestBody UrlDto url) { //create short link from a long link
         shortLinkService.addShortUrl(url.getUrl());
     }
 
